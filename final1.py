@@ -63,6 +63,7 @@ class Libro:
         pass
     
     def editar_libro(self):
+        print("probando git merge")
         pass
     
     def guardar_libro(self):
