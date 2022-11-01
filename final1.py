@@ -1,9 +1,12 @@
+import csv
+
+nombre_csv = 'Libros.csv'
 
 class Libro:
-    def __init__(self,id, título, género, ISBN, editorial,autores):
+    def __init__(self,id, titulo, genero, ISBN, editorial,autores):
         self.id = id
-        self.título = título
-        self.género = género
+        self.titulo = titulo
+        self.genero = genero
         self.ISBN = ISBN
         self.editorial = editorial
         self.autores = autores
@@ -15,13 +18,40 @@ class Libro:
         pass
     
     def agregar_libro(self):
-        pass
+        lista_libro = [self.id,self.titulo,self.genero,self.ISBN,self.editorial,self.autores]
+        
+        with open(nombre_csv,'a',newline='') as nuevo_libro:
+            #Pase el objeto del archivo CSV a la función writer()
+            objeto_libro = csv.writer(nuevo_libro)
+            #Pase los datos de la lista_libro como argumento a la función writerow()
+            objeto_libro.writerow(lista_libro)
+            #cerrando 
+            nuevo_libro.close()
+            
+        
     
     def eliminar_libro(self):
         pass
     
-    def buscar_libro(self):
-        pass
+    def buscar_libro_ISBN(self,isbn):
+        self.isbn = isbn
+        with open(nombre_csv,'r') as archivo:
+            for linea in archivo:
+                #quitamos los espacios en blanco con rstrip()
+                linea = linea.rstrip()
+                nueva_lista = linea.split(",")
+                if self.isbn == nueva_lista[3]:     
+                    print(nueva_lista[1])       
+    
+    def buscar_libro_titulo(self,titulos):
+        self.titulos = titulos
+        with open(nombre_csv,'r') as archivo:
+            for linea in archivo:
+                #quitamos los espacios en blanco con rstrip()
+                linea = linea.rstrip()
+                nueva_lista = linea.split(",")
+                if self.titulos == nueva_lista[1]:     
+                    print(nueva_lista[4]) 
     
     def ordenar_titulo(self):
         pass
@@ -37,3 +67,9 @@ class Libro:
     
     def guardar_libro(self):
         pass
+    
+
+libro1 = Libro("5","el señor de los anillos2","accion","12349","tiburones","yohana")
+#libro1.agregar_libro()
+#libro1.buscar_libro_ISBN("12348")
+libro1.buscar_libro_titulo("el señor de los anillos2")
